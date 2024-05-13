@@ -1,19 +1,12 @@
-const express = require('express');
 const jsonServer = require('json-server');
-
-const PORT = process.env.PORT || 3000;
-const server = express();
-
-// Create a JSON Server instance
-const jsonServerRouter = jsonServer.router('db.json');
+const server = jsonServer.create();
+const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
 
-// Use JSON Server middlewares
 server.use(middlewares);
+server.use(router);
 
-// You can use the JSON Server router in combination with your existing Express app
-server.use('/api', jsonServerRouter);
-
+const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-    console.log(`JSON Server is running on port ${PORT}`);
+  console.log(`JSON Server is running on port ${PORT}`);
 });
